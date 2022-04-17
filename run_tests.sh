@@ -1,6 +1,12 @@
 #!/bin/bash
 
-pip install -r requirements.txt
+# create a virtual enviornment and install requirements
+python -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt -q
+
+# clear out old benchmarks (optional, should use a command line arg)
+rm -rf .benchmarks
 
 # Declare an array of string with type
 declare -a Versions=(
@@ -29,3 +35,5 @@ done
 
 mkdir hist -p
 pytest-benchmark compare --histogram hist/hist --group-by name --sort fullname 1> /dev/null
+
+rm -rf .venv
