@@ -9,3 +9,7 @@ pip install -r requirements.txt
 ```
 
 Output will be saved to `hist/`
+
+
+### Example Output
+
