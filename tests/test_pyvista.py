@@ -6,7 +6,6 @@ import pyvista as pv
 from pyvista import examples
 from pyvista._version import version_info
 
-
 ## setup
 VOLUME = examples.download_brain()
 

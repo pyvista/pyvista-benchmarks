@@ -12,7 +12,7 @@ download_example () {
     fi
 } 
 
-# create a virtual enviornment and install requirements
+# create a virtual environment and install requirements
 python -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt -q
@@ -49,7 +49,7 @@ declare -a Versions=(
 for version in ${Versions[@]}; do
     echo "Benchmarking PyVista" $version
     pip install pyvista==$version -q
-    pytest --benchmark-save=$version -v --benchmark-quiet --disable-warnings --no-header -k lighting
+    pytest --benchmark-save=$version -v --benchmark-quiet --disable-warnings --no-header
 done
 
 # mkdir hist -p
