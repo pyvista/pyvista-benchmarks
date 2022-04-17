@@ -1,3 +1,5 @@
 .benchmarks/
 __pycache__/
 hist/
+examples/
+.venv/
