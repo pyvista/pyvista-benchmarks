@@ -3,3 +3,4 @@ __pycache__/
 hist/
 examples/
 .venv/
+pyvista/

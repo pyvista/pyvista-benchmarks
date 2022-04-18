@@ -20,11 +20,9 @@ pip install -r requirements.txt -q
 # clear out old benchmarks (optional, should use a command line arg)
 rm -rf .benchmarks
 
-# download examples
-rm -rf examples/
-download_example "examples/04-lights" "plotter_builtins.py"
-download_example "examples/01-filter" "contouring.py"
-
+# clone pyvista examples
+rm -rf pyvista
+git clone --depth 1 https://github.com/pyvista/pyvista.git
 
 # Declare an array of string with type
 declare -a Versions=(
@@ -43,15 +41,20 @@ declare -a Versions=(
     "0.32.1"
     "0.33.3"
     "0.34.0"
+    "main"
     )
  
 # Iterate the string array using for loop
 for version in ${Versions[@]}; do
     echo "Benchmarking PyVista" $version
-    pip install pyvista==$version -q
-    pytest --benchmark-save=$version -v --benchmark-quiet --disable-warnings --no-header
+    if [ "$version" = "main" ]; then
+        pip install .pyvista/
+    else
+        pip install pyvista==$version -q
+    fi
+    pytest tests/ --benchmark-save=$version --benchmark-quiet --disable-warnings --no-header
 done
 
-# mkdir hist -p
-# pytest-benchmark compare --histogram hist/hist --group-by name --sort fullname 1> /dev/nullcase 
-# rm -rf .venv
+mkdir hist -p
+rm hist/*
+pytest-benchmark compare --histogram hist/hist --group-by name --sort fullname 1> /dev/null
